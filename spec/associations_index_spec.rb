@@ -7,6 +7,11 @@ describe "Collect indexes based on associations:" do
   let(:warning_messages){ lol_dba[1] }
 
   it "find relationship indexes" do
+    puts "?---------------------"
+    relationship_indexes.sort.each do |k,v|
+      puts "> " + k.inspect + " - " + v.inspect
+    end
+    puts "---------------------"
     expect(relationship_indexes).not_to be_empty
 
     expect(relationship_indexes).to have_key("companies")
@@ -28,7 +33,7 @@ describe "Collect indexes based on associations:" do
     expect(relationship_indexes["companies_freelancers"]).not_to include(["freelancer_id", "company_id"])
   end
 
-  it "find indexes for has_and_belongs_to_many with custom join_table, primary and foreign keys" do
+  it "find indexes for has_and_belongs_to_many with custom join_table, primary and foreign keys and ensure that they're ordered" do
     expect(relationship_indexes["purchases"]).to include(["buyer_id", "present_id"])
     expect(relationship_indexes["purchases"]).not_to include(["present_id", "buyer_id"])
   end
@@ -43,7 +48,11 @@ describe "Collect indexes based on associations:" do
 
   it "find indexes for has_many :through" do
     expect(relationship_indexes["billable_weeks"]).to include(["remote_worker_id", "timesheet_id"])
+  end
+
+  it "does't create indexes for columns that doesn't exist" do
     expect(relationship_indexes["billable_weeks"]).not_to include(["billable_week_id", "remote_worker_id"])
+    expect(relationship_indexes["billable_weeks"]).not_to include(["timesheet_id", "worker_id"])
   end
 
   it "find indexes for has_many :through with source and foreign key" do
