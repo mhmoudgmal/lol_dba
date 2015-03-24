@@ -7,11 +7,6 @@ describe "Collect indexes based on associations:" do
   let(:warning_messages){ lol_dba[1] }
 
   it "find relationship indexes" do
-    puts "?---------------------"
-    relationship_indexes.sort.each do |k,v|
-      puts "> " + k.inspect + " - " + v.inspect
-    end
-    puts "---------------------"
     expect(relationship_indexes).not_to be_empty
 
     expect(relationship_indexes).to have_key("companies")
