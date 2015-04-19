@@ -1,39 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>lol_dba by plentz</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <title>lol_dba by plentz</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>lol_dba</h1>
-        <p>lol_dba is a small package of rake tasks that scan your application models and displays a list of columns that probably should be indexed. Also, it can generate .sql migration scripts.</p>
+    <div id="container">
+      <div class="inner">
 
-        <p class="view"><a href="https://github.com/plentz/lol_dba">View the Project on GitHub <small>plentz/lol_dba</small></a></p>
+        <header>
+          <h1>lol_dba</h1>
+          <h2>lol_dba is a small package of rake tasks that scan your application models and displays a list of columns that probably should be indexed. Also, it can generate .sql migration scripts.</h2>
+        </header>
 
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/plentz/lol_dba/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/plentz/lol_dba/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/plentz/lol_dba" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
-        <ul>
-          <li><a href="https://github.com/plentz/lol_dba/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/plentz/lol_dba/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/plentz/lol_dba">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>lol_dba <img src="https://api.travis-ci.org/plentz/lol_dba.png?branch=master" alt="travis">
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="lol_dba-" class="anchor" href="#lol_dba-" aria-hidden="true"><span class="octicon octicon-link"></span></a>lol_dba <a href="https://travis-ci.org/plentz/lol_dba"><img src="https://api.travis-ci.org/plentz/lol_dba.png?branch=master" alt="travis"></a>
 </h1>
 
 <p>lol_dba is a small package of rake tasks that scan your application models and displays a list of columns that probably should be indexed. Also, it can generate .sql migration scripts. Most of the code come from rails_indexes and migration_sql_generator.</p>
 
-<h3>Quick example</h3>
+<h3>
+<a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick example</h3>
 
 <p>To use lol_dba in the easiest way possible you have to do two things:</p>
 
@@ -47,12 +52,15 @@
 <pre><code>lol_dba db:find_indexes
 </code></pre>
 
-<p>To generate .sql files for all your migrations inside db/migrate_sql folder:</p>
+<p>To generate .sql files for your migrations inside db/migrate_sql folder:</p>
 
-<pre><code>lol_dba db:migrate_sql
+<pre><code>lol_dba db:migrate_sql # defaults to all migrations
+lol_dba db:migrate_sql[pending] # only pending migrations
+lol_dba db:migrate_sql[20120221205526] # generate sql only for migration 20120221205526
 </code></pre>
 
-<h3>Not-so-quick example</h3>
+<h3>
+<a id="not-so-quick-example" class="anchor" href="#not-so-quick-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Not-so-quick example</h3>
 
 <p>If you want to use lol_dba with rake, you should do a few more steps:</p>
 
@@ -69,14 +77,18 @@
 <p>Use it the same way you use other rake commands</p>
 
 <pre><code>rake db:find_indexes
-rake db:migrate_sql
+rake db:migrate_sql # defaults to all migrations
+rake db:migrate_sql[pending] # only pending migrations
+rake db:migrate_sql[20120221205526] # generate sql only for migration 20120221205526
 </code></pre>
 
-<h3>Compatibility</h3>
+<h3>
+<a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compatibility</h3>
 
-<p>Compatible with Ruby 1.9 and Rails 3.x. I think.</p>
+<p>Compatible with Ruby 2.x and Rails 3.x, 4.x.</p>
 
-<h3>About primary_key</h3>
+<h3>
+<a id="about-primary_key" class="anchor" href="#about-primary_key" aria-hidden="true"><span class="octicon octicon-link"></span></a>About primary_key</h3>
 
 <blockquote>
 <p>The primary key is always indexed. This is generally true for all storage engines that at all supports indices.</p>
@@ -84,7 +96,8 @@ rake db:migrate_sql
 
 <p>For this reason, we no longer suggest to add indexes to primary keys.</p>
 
-<h3>Tests</h3>
+<h3>
+<a id="tests" class="anchor" href="#tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tests</h3>
 
 <p>To run lol_dba tests, just clone the repo and run:</p>
 
@@ -93,11 +106,13 @@ rake db:migrate_sql
 
 <p>to run the tests.</p>
 
-<h3>Feedback</h3>
+<h3>
+<a id="feedback" class="anchor" href="#feedback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Feedback</h3>
 
 <p>All feedback, bug reports and thoughts on this gratefully received.</p>
 
-<h3>Contributors</h3>
+<h3>
+<a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributors</h3>
 
 <ul>
 <li><a href="http://plentz.org">Diego Plentz</a></li>
@@ -107,17 +122,28 @@ rake db:migrate_sql
 <li><a href="http://muness.blogspot.com/">Muness Alrubaie</a></li>
 <li><a href="https://github.com/warpc">Vladimir Sharshov</a></li>
 <li><a href="http://fabiorehm.com/">Fabio Rehm</a></li>
-</ul><h3>License</h3>
+<li><a href="http://m43nu.ch">Emanuel Imhof</a></li>
+<li><a href="https://twitter.com/PaReeOhNos">Adrian Hooper</a></li>
+<li><a href="https://github.com/rzane">Ray Zane</a></li>
+<li><a href="https://github.com/ggongaware">Grant Gongaware</a></li>
+<li><a href="https://szeryf.wordpress.com">Przemysław “Szeryf” Kowalczyk</a></li>
+<li><a href="http://philippweissensteiner.com">Philipp Weissensteiner</a></li>
+<li><a href="https://twitter.com/PikachuEXE">Leung Ho Kuen</a></li>
+<li><a href="https://twitter.com/lucasmazza">Lucas Mazza</a></li>
+</ul>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
 
 <p>Lol DBA is released under the MIT license.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/plentz">plentz</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
+        </section>
+
+        <footer>
+          lol_dba is maintained by <a href="https://github.com/plentz">plentz</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+                  <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -128,5 +154,7 @@ rake db:migrate_sql
             } catch(err) {}
           </script>
 
+      </div>
+    </div>
   </body>
 </html>
