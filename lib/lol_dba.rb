@@ -115,13 +115,15 @@ EOM
             index_name = [association_foreign_key, foreign_key].sort
           when :has_many
             # has_many tables are threaten by the other side of the relation
-            next unless reflection_options.options[:through] && reflections[reflection_options.options[:through].to_s]
-            through_class = reflections[reflection_options.options[:through].to_s].klass
+            through = reflection_options.options[:through]
+            next unless through && reflections[through.to_s]
+            through_class = reflections[through.to_s].klass
             table_name = through_class.table_name
 
             foreign_key = get_through_foreign_key(class_name, reflection_options)
 
-            if source = reflection_options.options[:source]
+            source = reflection_options.options[:source_type] || reflection_options.options[:source]
+            if source
               association_class = through_class.reflections.stringify_keys[source.to_s].klass
               association_foreign_key = get_through_foreign_key(association_class, reflection_options)
             elsif through_reflections = through_class.reflections.stringify_keys[reflection_name.singularize]
